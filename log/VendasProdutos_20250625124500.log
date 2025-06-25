@@ -1,0 +1,133 @@
+1                                                          The SAS System                             11:48 Wednesday, June 25, 2025
+
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8) 
+      Licensed to SAS Education 23w08, Site 70068118.
+NOTE: This session is executing on the Linux 3.10.0-1160.31.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.3
+      SAS/ETS 15.3
+      SAS/OR 15.3
+      SAS/IML 15.3
+      SAS/QC 15.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021 x86_64 CentOS Linux release 7.9.2009 (Core) 
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.02 seconds
+      cpu time            0.02 seconds
+      
+1          /*
+2           *
+3           * Programa: VendasProdutos.sas
+4           * Autor: Reinaldo
+5           * Data: 25/06/2025
+6           * Módulo: Preperação de Dados
+7           * Versão: 1.00
+8           *
+9           */
+10         
+11         %include "/opt/sas/Workshop/Git/OC1/macro/macrovars.sas";
+24         %include "&caminho/src/libraries.sas";
+NOTE: Libref SICOOB was successfully assigned as follows: 
+      Engine:        BASE 
+      Physical Name: /opt/sas/Workshop/libraries/Sicoob
+NOTE: Libref SICOOBSP was successfully assigned as follows: 
+      Engine:        BASE 
+2                                                          The SAS System                             11:48 Wednesday, June 25, 2025
+
+      Physical Name: /opt/sas/Workshop/libraries/SicoobSP
+37         
+38         proc sort data=sicoob.vendas out=work.vendas_produto;
+39         	by CodProduto;
+40         run;
+
+NOTE: There were 15010 observations read from the data set SICOOB.VENDAS.
+NOTE: The data set WORK.VENDAS_PRODUTO has 15010 observations and 6 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+41         
+42         /* Descobrimos que existem muitas linhas missing = Eliminar */
+43         data work.produtos_corr;
+44         	set sicoob.produtos;
+45         	where CodProduto is not missing;
+46         run;
+
+NOTE: There were 32 observations read from the data set SICOOB.PRODUTOS.
+      WHERE CodProduto is not null;
+NOTE: The data set WORK.PRODUTOS_CORR has 32 observations and 5 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+47         
+48         proc sort data=work.produtos_corr out=work.produtos_produto;
+49         	by CodProduto;
+50         run;
+
+NOTE: There were 32 observations read from the data set WORK.PRODUTOS_CORR.
+NOTE: The data set WORK.PRODUTOS_PRODUTO has 32 observations and 5 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+51         
+52         data sicoobsp.VendasProduto;
+53         	merge work.vendas_produto work.produtos_produto;
+54         	by CodProduto;
+55         run;
+
+ERROR: User does not have appropriate authorization level for file SICOOBSP.VENDASPRODUTO.DATA.
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: Due to ERROR(s) above, SAS set option OBS=0, enabling syntax check mode. 
+      This prevents execution of subsequent data modification statements.
+NOTE: There were 1 observations read from the data set WORK.VENDAS_PRODUTO.
+NOTE: There were 1 observations read from the data set WORK.PRODUTOS_PRODUTO.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+56         
+3                                                          The SAS System                             11:48 Wednesday, June 25, 2025
+
+57         %include "&caminho/src/clear_libs.sas";
+NOTE: Libref SICOOB has been deassigned.
+NOTE: Libref SICOOBSP has been deassigned.
+
+ERROR: Errors printed on page 2.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      

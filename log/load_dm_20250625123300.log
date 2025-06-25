@@ -1,0 +1,194 @@
+1                                                          The SAS System                             11:36 Wednesday, June 25, 2025
+
+NOTE: Copyright (c) 2023 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M8) 
+      Licensed to SAS Education 23w08, Site 70068118.
+NOTE: This session is executing on the Linux 3.10.0-1160.31.1.el7.x86_64 (LIN X64) platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.3
+      SAS/ETS 15.3
+      SAS/OR 15.3
+      SAS/IML 15.3
+      SAS/QC 15.3
+
+NOTE: Additional host information:
+
+ Linux LIN X64 3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021 x86_64 CentOS Linux release 7.9.2009 (Core) 
+
+You are running SAS 9. Some SAS 8 files will be automatically converted 
+by the V9 engine; others are incompatible.  Please see 
+http://support.sas.com/rnd/migration/planning/platform/64bit.html
+
+PROC MIGRATE will preserve current SAS file attributes and is 
+recommended for converting all your SAS libraries from any 
+SAS 8 release to SAS 9.  For details and examples, please see
+http://support.sas.com/rnd/migration/index.html
+
+
+This message is contained in the SAS news file, and is presented upon
+initialization.  Edit the file "news" in the "misc/base" directory to
+display site-specific news and information in the program log.
+The command line option "-nonews" will prevent this display.
+
+
+
+
+NOTE: SAS initialization used:
+      real time           0.03 seconds
+      cpu time            0.02 seconds
+      
+1          /*
+2           *
+3           * Programa: load_dm.sas
+4           * Autor: Reinaldo
+5           * Data: 25/06/2025
+6           * Módulo: Carga de dados
+7           * Versão: 1.00
+8           *
+9           */
+10         %include "/opt/sas/Workshop/Git/OC1/macro/macrovars.sas";
+23         %include "&caminho/src/libraries.sas";
+NOTE: Libref SICOOB was successfully assigned as follows: 
+      Engine:        BASE 
+      Physical Name: /opt/sas/Workshop/libraries/Sicoob
+NOTE: Libref SICOOBSP was successfully assigned as follows: 
+      Engine:        BASE 
+      Physical Name: /opt/sas/Workshop/libraries/SicoobSP
+2                                                          The SAS System                             11:36 Wednesday, June 25, 2025
+
+36         
+37         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+38         	out=sicoob.vendas replace;
+39         	sheet=vendas;
+40         run;
+
+NOTE: The import data set has 15010 observations and 6 variables.
+NOTE: SICOOB.VENDAS data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.95 seconds
+      cpu time            0.96 seconds
+      
+
+41         
+42         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+43         	out=sicoob.produtos replace;
+44         	sheet=produtos;
+45         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 3000 observations and 5 variables.
+NOTE: SICOOB.PRODUTOS data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+
+46         
+47         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+48         	out=sicoob.deptos replace;
+49         	sheet=deptos;
+50         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 2 observations and 2 variables.
+NOTE: SICOOB.DEPTOS data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+51         
+52         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+53         	out=sicoob.grupos replace;
+54         	sheet=grupos;
+55         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 3 observations and 2 variables.
+NOTE: SICOOB.GRUPOS data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+3                                                          The SAS System                             11:36 Wednesday, June 25, 2025
+
+56         
+57         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+58         	out=sicoob.cores replace;
+59         	sheet=cores;
+60         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 28 observations and 2 variables.
+NOTE: SICOOB.CORES data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+61         
+62         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+63         	out=sicoob.tamanhos replace;
+64         	sheet=tamanhos;
+65         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 4 observations and 2 variables.
+NOTE: SICOOB.TAMANHOS data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+66         
+67         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+68         	out=sicoob.estados replace;
+69         	sheet=estados;
+70         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 27 observations and 6 variables.
+NOTE: SICOOB.ESTADOS data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+71         
+72         proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
+73         	out=sicoob.regioes replace;
+74         	sheet="Regiões";
+75         run;
+
+NOTE: One or more variables were converted because the data type is not supported by the V9 engine. For more details, run with 
+      options MSGLEVEL=I.
+NOTE: The import data set has 5 observations and 2 variables.
+NOTE: SICOOB.REGIOES data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+4                                                          The SAS System                             11:36 Wednesday, June 25, 2025
+
+      
+
+76         
+77         %include "&caminho/src/clear_libs.sas";
+NOTE: Libref SICOOB has been deassigned.
+NOTE: Libref SICOOBSP has been deassigned.
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           1.05 seconds
+      cpu time            1.04 seconds
+      
