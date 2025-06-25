@@ -49,3 +49,5 @@ proc import datafile="&caminho/output/DM1.xlsx" dbms=xlsx
 	out=sicoob.regioes replace;
 	sheet="Regiões";
 run;
+
+%include "&caminho/src/clear_libs.sas";
