@@ -12,7 +12,7 @@
 %include "&caminho/src/libraries.sas";
 
 proc sql;
-	create table sicoobsp.VendasProduto as
+	create table sicoobsp.VendasPeriodo as
 	select a.codproduto, b.descricao, b.codgrupo, b.coddepto, 
            a.codcor, a.codtamanho, a.codestado,
 	       a.datavenda, a.qtdevendida, b.precounitario, 
