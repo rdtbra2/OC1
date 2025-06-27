@@ -10,3 +10,4 @@
 
 libname sicoob base "&caminho_libs/Sicoob";
 libname sicoobsp base "&caminho_libs/SicoobSP";
+libname oc1 oracle path='OrionStar' user='oc1' password='Student1' schema='oc1';

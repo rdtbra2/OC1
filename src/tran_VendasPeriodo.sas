@@ -22,22 +22,58 @@ proc sql;
 		   a.qtdevendida*b.precounitario as TotalVenda,
 		   g.percimposto format=percent6.2, 
 		   a.qtdevendida*b.precounitario*g.percimposto as TotalImposto
-	  from sicoob.vendas a
-	 inner join sicoob.produtos b
+	  from oc1.vendas a
+	 inner join oc1.produtos b
         on b.codproduto = a.codproduto
-     inner join sicoob.grupos c
+     inner join oc1.grupos c
         on c.codgrupo = b.codgrupo
-     inner join sicoob.deptos d
+     inner join oc1.deptos d
         on d.coddepto = b.coddepto
-     inner join sicoob.cores e
+     inner join oc1.cores e
         on e.codcor = a.codcor
-     inner join sicoob.tamanhos f
+     inner join oc1.tamanhos f
         on f.codtamanho = a.codtamanho
-     inner join sicoob.estados g
+     inner join oc1.estados g
         on g.codestado = a.codestado
-     inner join sicoob.regioes h
+     inner join oc1.regioes h
         on h.codregiao = g.codregiao
 ;
 quit;
 
 %include "&caminho/src/clear_libs.sas";
+
+data oc1.produtos;
+	set sicoob.produtos;
+run;
+
+data oc1.cores;
+	set sicoob.cores;
+run;
+
+data oc1.tamanhos;
+	set sicoob.tamanhos;
+run;
+
+data oc1.deptos;
+	set sicoob.deptos;
+run;
+
+data oc1.grupos;
+	set sicoob.grupos;
+run;
+
+data oc1.estados;
+	set sicoob.estados;
+run;
+
+data oc1.regioes;
+	set sicoob.regioes;
+run;
+
+proc sql;
+	connect to oracle (path='OrionStar' user='oc1' 
+		password='Student1'); 
+	select count(*) from connection to oracle(
+	create index ix_produtos on produtos(codproduto));
+	disconnect from oracle;
+quit;
