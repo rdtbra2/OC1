@@ -22,23 +22,22 @@ proc sql;
 		   a.qtdevendida*b.precounitario as TotalVenda,
 		   g.percimposto format=percent6.2, 
 		   a.qtdevendida*b.precounitario*g.percimposto as TotalImposto
-	  from oc1.vendas a
-	 inner join oc1.produtos b
+	  from sicoob.vendas a
+	 inner join sicoob.produtos b
         on b.codproduto = a.codproduto
-     inner join oc1.grupos c
+     inner join sicoob.grupos c
         on c.codgrupo = b.codgrupo
-     inner join oc1.deptos d
+     inner join sicoob.deptos d
         on d.coddepto = b.coddepto
-     inner join oc1.cores e
+     inner join sicoob.cores e
         on e.codcor = a.codcor
-     inner join oc1.tamanhos f
+     inner join sicoob.tamanhos f
         on f.codtamanho = a.codtamanho
-     inner join oc1.estados g
+     inner join sicoob.estados g
         on g.codestado = a.codestado
-     inner join oc1.regioes h
+     inner join sicoob.regioes h
         on h.codregiao = g.codregiao
 ;
 quit;
 
 %include "&caminho/src/clear_libs.sas";
-
