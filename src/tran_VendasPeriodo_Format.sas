@@ -1,8 +1,8 @@
 /*
  *
- * Programa: tran_VendasPeriodo.sas
+ * Programa: tran_VendasPeriodo_Format.sas
  * Autor: Reinaldo
- * Data: 25/06/2025
+ * Data: 27/06/2025
  * Módulo: Preperação de Dados
  * Versão: 1.00
  * 
@@ -10,12 +10,13 @@
 
 %include "/opt/sas/Workshop/Git/OC1/macro/macrovars.sas";
 %include "&caminho/src/libraries.sas";
+%include "&caminho/src/formatos_corp.sas";
 
 proc sql;
 	create table sicoobsp.VendasPeriodo as
 	select a.codproduto, b.descricao, c.descricao as Grupo, 
            d.descricao as Depto, 
-           e.descricao as Cor, f.Descricao as Tamanho, 
+           e.descricao as Cor, a.CodTamanho format=tamanho., 
 		   g.Sigla, g.Nome as Estado, h.Nome as Regiao,
            a.datavenda, a.qtdevendida, 
            b.precounitario, 
@@ -31,8 +32,8 @@ proc sql;
         on d.coddepto = b.coddepto
      inner join sicoob.cores e
         on e.codcor = a.codcor
-     inner join sicoob.tamanhos f
-        on f.codtamanho = a.codtamanho 
+/*     inner join sicoob.tamanhos f
+        on f.codtamanho = a.codtamanho */
      inner join sicoob.estados g
         on g.codestado = a.codestado
      inner join sicoob.regioes h
