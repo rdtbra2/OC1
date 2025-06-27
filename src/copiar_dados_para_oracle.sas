@@ -1,3 +1,13 @@
+/*
+ *
+ * Programa: copiar_dados_para_oracle.sas
+ * Autor: Reinaldo
+ * Data: 27/06/2025
+ * Módulo: Geral
+ * Versão: 1.00
+ * 
+ */
+
 data oc1.produtos;
 	set sicoob.produtos;
 run;

@@ -12,6 +12,7 @@
 %include "&caminho/src/libraries.sas";
 
 proc sql;
+    /* drop table oc1.VendasPeriodo; */
 	create table sicoobsp.VendasPeriodo as
 	select a.codproduto, b.descricao, c.descricao as Grupo, 
            d.descricao as Depto, 
@@ -22,7 +23,7 @@ proc sql;
 		   a.qtdevendida*b.precounitario as TotalVenda,
 		   g.percimposto format=percent6.2, 
 		   a.qtdevendida*b.precounitario*g.percimposto as TotalImposto
-	  from sicoob.vendas a
+	  from oc1.vendas a
 	 inner join sicoob.produtos b
         on b.codproduto = a.codproduto
      inner join sicoob.grupos c
@@ -37,6 +38,7 @@ proc sql;
         on g.codestado = a.codestado
      inner join sicoob.regioes h
         on h.codregiao = g.codregiao
+	 where year(datavenda) = 2023
 ;
 quit;
 
