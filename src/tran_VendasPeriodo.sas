@@ -42,38 +42,3 @@ quit;
 
 %include "&caminho/src/clear_libs.sas";
 
-data oc1.produtos;
-	set sicoob.produtos;
-run;
-
-data oc1.cores;
-	set sicoob.cores;
-run;
-
-data oc1.tamanhos;
-	set sicoob.tamanhos;
-run;
-
-data oc1.deptos;
-	set sicoob.deptos;
-run;
-
-data oc1.grupos;
-	set sicoob.grupos;
-run;
-
-data oc1.estados;
-	set sicoob.estados;
-run;
-
-data oc1.regioes;
-	set sicoob.regioes;
-run;
-
-proc sql;
-	connect to oracle (path='OrionStar' user='oc1' 
-		password='Student1'); 
-	select count(*) from connection to oracle(
-	create index ix_produtos on produtos(codproduto));
-	disconnect from oracle;
-quit;
