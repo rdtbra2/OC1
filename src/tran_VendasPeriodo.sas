@@ -38,7 +38,6 @@ proc sql;
         on g.codestado = a.codestado
      inner join sicoob.regioes h
         on h.codregiao = g.codregiao
-	 where year(datavenda) = 2023
 ;
 quit;
 
